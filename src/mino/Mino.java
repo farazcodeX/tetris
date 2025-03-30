@@ -3,8 +3,8 @@ package mino;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import main.Block;
-import main.PlayManager;
+import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
+import main.*;
 
 public class Mino {
 
@@ -35,8 +35,11 @@ public class Mino {
    public void updateXY(int direction) {}
    public void update() {
 
-      ++autoDropCounter;
+      
 
+
+      // first mino drop
+      ++autoDropCounter;
       if(autoDropCounter == PlayManager.dropInterval) {
          // move evry block by one block every time the counter hits the number
          for(int i = 0; i < 4; ++i) {
@@ -45,6 +48,10 @@ public class Mino {
 
          }
       }
+
+      // second : mino rutation
+     
+      
 
    }
    public void draw(Graphics2D g2d) {

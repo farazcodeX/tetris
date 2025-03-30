@@ -15,12 +15,17 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread;
     PlayManager playManager = new PlayManager();
+    KeyHandler keyHandler = new KeyHandler();
+
 
     public GamePanel() {
 
         this.setPreferredSize(new Dimension(width, height));
         this.setBackground(Color.BLACK);
         this.setLayout(null);
+        // add key 
+        this.addKeyListener(keyHandler);
+        this.setFocusable(true);
     }
 
     /*@Override
