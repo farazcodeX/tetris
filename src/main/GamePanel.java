@@ -21,19 +21,14 @@ public class GamePanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(width, height));
         this.setBackground(Color.BLACK);
         this.setLayout(null);
-
-
-        
-
-
     }
 
-    @Override
+    /*@Override
     public void run() {
 
         long currentTime;
         long lastTime;
-        double perferdTime = 100_000_000/6;
+        double perferdTime = 1000000000/6;
         double delta = 0;
 
 
@@ -42,26 +37,21 @@ public class GamePanel extends JPanel implements Runnable{
 
         while (gameThread != null) {
 
+            System.out.println("run");
+
             currentTime = System.nanoTime();
             
             delta += currentTime - lastTime / perferdTime;
-            
+             lastTime = currentTime;
             if(delta >= 1) {
                 update();
                 repaint();
                 
                 --delta;
-            }
-
-            lastTime = currentTime;
-
-            
+            }   
         }
-       
-        
-
-
-    }
+    }*/
+    
     public void lunchGame() {
 
         gameThread = new Thread(this);
@@ -86,6 +76,28 @@ public class GamePanel extends JPanel implements Runnable{
         playManager.draw(g2d);
 
 
+    }
+    // re write run method form my other game
+    @Override
+    public void run() {
+        
+        double drawInterval = 1_000_000_000/60;// THIS is basicly our TARGET_TIME_TO_CYCLE
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        
+        while ( gameThread != null)
+        {
+            currentTime = System.nanoTime();
+             delta += (currentTime-lastTime)/drawInterval;// میخوایم ببینیم ایا دلتا به حد نسابش رسیدع یا نه
+             if (delta >= 1)
+             {
+              update();//
+              repaint();// THIS call paint method (PaintCompnent)
+              delta--;
+             }
+             lastTime = currentTime;// update our lastTime 
+        }
     }
 
     
