@@ -28,8 +28,72 @@ public class Mino_L1 extends Mino{
     }
 
     @Override
-    public void updateXY(int direction) {
-       
+    public void getDirection1() {
+
+        // direction 1 : is default block but making rotation we put them in temp 
+        temp[0].x = block[0].x;
+        temp[0].y = block[0].y;
+        temp[1].x = block[0].x;
+        temp[1].y = block[0].y - Block.size;
+        temp[2].x = block[0].x;
+        temp[2].y = block[0].y + Block.size;
+        temp[3].x = block[0].x + Block.size;
+        temp[3].y = block[0].y + Block.size;
+
+        updateXY(1);
+
+
+    }
+
+    @Override
+    public void getDirection2() {
+        // O O O O
+       //  O
+       temp[0].x = block[0].x;
+       temp[0].y = block[0].y;
+       temp[1].x = block[0].x + Block.size;
+       temp[1].y = block[0].y;
+       temp[2].x = block[0].x - Block.size;
+       temp[2].y = block[0].y;
+       temp[3].x = block[0].x - Block.size;
+       temp[3].y = block[0].y + Block.size;
+
+       updateXY(2);
+
+    }
+
+    @Override
+    public void getDirection3() {
+       //O O 
+       //  O
+      //   O
+      temp[0].x = block[0].x;
+      temp[0].y = block[0].y;
+      temp[1].x = block[0].x;
+      temp[1].y = block[0].y + Block.size;
+      temp[2].x = block[0].x;
+      temp[2].y = block[0].y - Block.size;
+      temp[3].x = block[0].x - Block.size;
+      temp[3].y = block[0].y - Block.size;
+
+      updateXY(3);
+
+    }
+
+    @Override
+    public void getDirection4() {
+      //     O 
+      // O O O       
+      temp[0].x = block[0].x;
+      temp[0].y = block[0].y;
+      temp[1].x = block[0].x - Block.size;
+      temp[1].y = block[0].y;
+      temp[2].x = block[0].x + Block.size;
+      temp[2].y = block[0].y;
+      temp[3].x = block[0].x + Block.size;
+      temp[3].y = block[0].y - Block.size;
+
+      updateXY(4);
     }
     
 }
