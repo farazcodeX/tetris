@@ -92,7 +92,26 @@ public class PlayManager {
     }
     public void update() {
 
-        mino.update();
+        // mino active/deactive procces
+        if(mino.active) {
+            mino.update();
+        } else {
+
+            // if mino is deactive :
+            for(int i = 0; i < 4; ++i) {
+                staticBLocks.add(mino.block[i]);
+            }
+
+            // then replace current mino with the next mino :
+            mino = nextMino;
+            mino.setXY(minoStarstX, minoStartY);
+            // creating next mino
+            nextMino = pickMino();
+            nextMino.setXY(nextMInoX, nextMinoY);
+
+        }
+
+        
 
     }
     public void draw(Graphics2D g2d) {
@@ -108,6 +127,10 @@ public class PlayManager {
         g2d.setFont(new Font("Arial", Font.PLAIN, 30));
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.drawString("NEXT", x+60, y+60);
+
+        for(Block block2 : staticBLocks) {
+            block2.draw(g2d);
+        }
 
         // draw the mino
         if(mino != null) {

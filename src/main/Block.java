@@ -14,8 +14,11 @@ public class Block extends Rectangle{
         this.color = color;
     }
     public void draw(Graphics2D g2d) {
+
+        int margin = 2;
+
         g2d.setColor(color);
-        g2d.fillRect(x, y, size, size);
+        g2d.fillRect(x + margin, y + margin, size-(2* margin), size-(2*margin));
     }
 
 }

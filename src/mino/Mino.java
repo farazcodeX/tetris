@@ -67,14 +67,43 @@ public abstract class Mino {
    public abstract void getDirection3();
    public abstract void getDirection4();
 
-   public void checkMoveCollision() {
+   // we need to check if current mino is making collision with other static blocks or no
+   public void checkBLockCollision() {
 
-      // this is simple 
-      // but other collian in important
+      // insect isnt working : 
+      for(Block block1 : PlayManager.staticBLocks) {
+         int x = block1.x;
+         int y = block1.y;
+
+         for(int i = 0; i < block.length; ++i) {
+            if(block[i].x == x && block[i].y + Block.size == y) {
+               buttonCO = true;
+            }
+         }
+         for(int i = 0; i < block.length; ++i) {
+            if(block[i].x - Block.size == x && block[i].y == y) {
+               leftCo = true;
+            }
+         }
+         for(int i = 0; i < block.length; ++i) {
+            if(block[i].x + Block.size == x && block[i].y == y) {
+               rightCo = true;
+            }
+         }
+         
+         
+      }
+
+   }
+
+   public void checkMoveCollision() {
 
       rightCo = false;
       leftCo = false;
       buttonCO = false;
+
+      // blocks collison
+      checkBLockCollision();
 
       for(int i = 0; i < 4; ++i) {
          if(block[i].x == PlayManager.leftX) {
@@ -100,6 +129,8 @@ public abstract class Mino {
       rightCo = false;
       leftCo = false;
       buttonCO = false;
+
+      checkBLockCollision();
 
       for(int i = 0; i < 4; ++i) {
          if(temp[i].x < PlayManager.leftX) {
