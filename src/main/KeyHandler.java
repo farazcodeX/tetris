@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-    public static boolean up, down, left, rigth;
+    public static boolean up, down, left, rigth, pause;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -34,6 +34,18 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_RIGHT) {
             rigth = true;
             
+        }
+        if(code == KeyEvent.VK_ESCAPE) {
+
+            // kafan
+            if(pause) {
+                pause = false;
+            }
+            else {
+               pause = true;
+            }
+             
+
         }
 
         

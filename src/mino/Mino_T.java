@@ -19,36 +19,81 @@ public class Mino_T extends Mino{
         block[0].y = y;
         block[1].x = block[0].x;
         block[1].y = block[0].y - Block.size;
-        block[2].x = block[0].x;
-        block[2].y = block[0].y + Block.size;
+        block[2].x = block[0].x - Block.size;
+        block[2].y = block[0].y;
         block[3].x = block[0].x + Block.size;
-        block[3].y = block[0].y + Block.size;
+        block[3].y = block[0].y;
        
     }
 
     @Override
     public void getDirection1() {
 
-        
+        temp[0].x = block[0].x;
+        temp[0].y = block[0].y;
+        temp[1].x = block[0].x;
+        temp[1].y = block[0].y - Block.size;
+        temp[2].x = block[0].x - Block.size;
+        temp[2].y = block[0].y;
+        temp[3].x = block[0].x + Block.size;
+        temp[3].y = block[0].y;
+
+
+
+        updateXY(1);
     
     }
 
     @Override
     public void getDirection2() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDirection2'");
+
+        temp[0].x = block[0].x;
+        temp[0].y = block[0].y;
+        temp[1].x = block[0].x + Block.size;
+        temp[1].y = block[0].y;
+        temp[2].x = block[0].x;
+        temp[2].y = block[0].y - Block.size;
+        temp[3].x = block[0].x;
+        temp[3].y = block[0].y + Block.size;
+
+        updateXY(2);
+
+      
     }
 
     @Override
     public void getDirection3() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDirection3'");
+
+        temp[0].x = block[0].x;
+        temp[0].y = block[0].y;
+        temp[1].x = block[0].x;
+        temp[1].y = block[0].y + Block.size;
+        temp[2].x = block[0].x + Block.size;
+        temp[2].y = block[0].y;
+        temp[3].x = block[0].x - Block.size;
+        temp[3].y = block[0].y;
+
+        updateXY(3);
+
+
+      
     }
 
     @Override
     public void getDirection4() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDirection4'");
+
+        temp[0].x = block[0].x;
+        temp[0].y = block[0].y;
+        temp[1].x = block[0].x - Block.size;
+        temp[1].y = block[0].y;
+        temp[2].x = block[0].x;
+        temp[2].y = block[0].y + Block.size;
+        temp[3].x = block[0].x;
+        temp[3].y = block[0].y - Block.size;
+
+        updateXY(4);
+
+     
     }
 
     

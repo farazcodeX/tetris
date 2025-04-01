@@ -67,7 +67,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     // this method will be called form gameloop every 1/6 seconds to update the information of painting stufs
     private void update() {
-        playManager.update();
+
+        if(KeyHandler.pause == false) {
+            playManager.update();
+        }
+        
 
     }
     // lets go to my darling

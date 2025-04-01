@@ -21,9 +21,12 @@ public abstract class Mino {
    int autoDropCounter = 0;
    public int direction = 1; // 1, 2, 3, 4;
    // each mino has 4 rotations
-
-
    Color color;
+   
+   // collision
+   public Boolean rightCo, leftCo, buttonCO;
+   public Boolean active = true;
+   
 
    public void create(Color color) {
 
@@ -35,10 +38,7 @@ public abstract class Mino {
         // we must do this for them
          block[i] = new Block(color); 
          temp[i] = new Block(color);
-
       }
-     
-
    }
    
     
@@ -47,11 +47,17 @@ public abstract class Mino {
       // this method apply the changes form each rotation
       this.direction = direction;
 
-      for(int i = 0; i < 4; ++i) {
-         block[i].x = temp[i].x;
-         block[i].y = temp[i].y;
+      checkRotateCollision();
 
+      if(leftCo == false && rightCo == false && buttonCO == false) {
+          for(int i = 0; i < 4; ++i) {
+           block[i].x = temp[i].x;
+           block[i].y = temp[i].y;
+
+         }
       }
+
+     
       // why using temp array : if you touch a mino the rotation will be canceled 
       // so we need to re store privuse position
 
@@ -61,19 +67,62 @@ public abstract class Mino {
    public abstract void getDirection3();
    public abstract void getDirection4();
 
-   public void update() {
-      // first mino drop
-      ++autoDropCounter;
-      if(autoDropCounter == PlayManager.dropInterval) {
-         // move evry block by one block every time the counter hits the number
-         for(int i = 0; i < 4; ++i) {
-            block[i].y += Block.size;
-            autoDropCounter = 0;
+   public void checkMoveCollision() {
 
+      // this is simple 
+      // but other collian in important
+
+      rightCo = false;
+      leftCo = false;
+      buttonCO = false;
+
+      for(int i = 0; i < 4; ++i) {
+         if(block[i].x == PlayManager.leftX) {
+            leftCo = true;
+         }
+      }
+      for(int i = 0; i < 4; ++i) {
+         if(block[i].x + Block.size == PlayManager.rightX) {
+            rightCo = true;
+         }
+      }
+      for(int i = 0; i < 4; ++i) {
+         if(block[i].y + Block.size == PlayManager.buttonY) {
+             buttonCO = true;
          }
       }
 
-      // second : mino rutation
+   }
+   public void checkRotateCollision() {
+
+      // you need to check if you rotate you have make sure you r not making any collison
+
+      rightCo = false;
+      leftCo = false;
+      buttonCO = false;
+
+      for(int i = 0; i < 4; ++i) {
+         if(temp[i].x < PlayManager.leftX) {
+            leftCo = true;
+         }
+      }
+      for(int i = 0; i < 4; ++i) {
+         if(temp[i].x + Block.size > PlayManager.rightX) {
+            rightCo = true;
+         }
+      }
+      for(int i = 0; i < 4; ++i) {
+         if(temp[i].y + Block.size > PlayManager.buttonY) {
+             buttonCO = true;
+         }
+      }
+
+
+   }
+
+   public void update() {
+
+
       if(KeyHandler.up) {
 
          switch (direction) {
@@ -85,29 +134,61 @@ public abstract class Mino {
          }
          autoDropCounter = 0;
          KeyHandler.up = false;
-
       }
+
+      checkMoveCollision();
+      //if collision is happening so the mino cannot move
+
       if(KeyHandler.down) {
          // ez
-         for(int i = 0; i < 4; ++i) {
+         if(buttonCO == false) {
+            for(int i = 0; i < 4; ++i) {
             block[i].y += Block.size;
+            }
+            autoDropCounter = 0;
          }
-         autoDropCounter = 0;
+         
          KeyHandler.down = false;
 
       }
       if(KeyHandler.left) {
 
+         if(leftCo == false) {
+            for(int i = 0; i < 4; ++i) {
+            block[i].x -= Block.size;
+            }
+         }
+         KeyHandler.left = false;
       }
       if(KeyHandler.rigth) {
 
+         if(rightCo == false) {
+            for(int i = 0; i < 4; ++i) {
+            block[i].x += Block.size;
+            }
+         }
+         
+         KeyHandler.rigth = false;
       }
-      
-    
-      
-     
-      
 
+
+       if(buttonCO) {
+         // if mino reaches button we deactive the mino and deploy next one
+         active = false;
+
+       }
+       else {
+         ++autoDropCounter;
+         if(autoDropCounter == PlayManager.dropInterval) {
+         // move evry block by one block every time the counter hits the number
+            for(int i = 0; i < 4; ++i) {
+              block[i].y += Block.size;
+              autoDropCounter = 0;
+
+            }
+         }
+       }
+      // first mino drop
    }
    public void draw(Graphics2D g2d) {
 
@@ -119,13 +200,7 @@ public abstract class Mino {
       for(int i = 0; i < 4; ++i) {
          g2d.fillRect(block[i].x+margin, block[i].y+margin, Block.size-2*margin, Block.size-2*margin);
 
-
       }
-
-      
    }
-
-     
-
     
 }
