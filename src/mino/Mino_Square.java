@@ -7,7 +7,7 @@ import main.Block;
 public class Mino_Square extends Mino{
 
     public Mino_Square() {
-        create(Color.WHITE);
+        create(Color.YELLOW);
     }
 
     @Override

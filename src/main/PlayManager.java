@@ -97,6 +97,8 @@ public class PlayManager {
             mino.update();
         } else {
 
+            mino.deactivation = false;
+
             // if mino is deactive :
             for(int i = 0; i < 4; ++i) {
                 staticBLocks.add(mino.block[i]);
@@ -109,9 +111,54 @@ public class PlayManager {
             nextMino = pickMino();
             nextMino.setXY(nextMInoX, nextMinoY);
 
+            // check
+            checkDeleteLine();
+
         }
 
         
+
+    }
+    public void checkDeleteLine() {
+
+        // we are counting blocks in each line
+        // it must be 12 blocks to delete a line
+        // this method is not optimized well and its heavy
+
+        int x = leftX;
+        // in dalil dare
+        int y = topY;
+        int blockCounter = 0;
+        
+        while(x < rightX && y < buttonY) {
+            for(int i = 0; i < staticBLocks.size(); ++i) {
+                if(staticBLocks.get(i).x == x && staticBLocks.get(i).y == y) {
+                    ++blockCounter;
+                }
+            }
+            x += Block.size;
+            if(x == rightX) {
+                if(blockCounter == 12) {
+                    // remove every block in this lien :
+                    for(int j = staticBLocks.size()-1; j > -1; --j) {
+                        // in dalil dare ke chra az akhar baresi mikonim
+                        if(staticBLocks.get(j).y == y) {
+                            staticBLocks.remove(j);
+                        }
+                    }
+                    // after removing a line we need shit remain blocks down
+                    for(int i = staticBLocks.size()-1; i > -1; --i) {
+                        // if block is top of line 
+                        if(staticBLocks.get(i).y < y) {
+                            staticBLocks.get(i).y += Block.size;
+                        }
+                    }
+                }
+                blockCounter = 0;
+                x = leftX;
+                y += Block.size;
+            }
+        }
 
     }
     public void draw(Graphics2D g2d) {

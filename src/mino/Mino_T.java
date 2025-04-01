@@ -7,7 +7,7 @@ import main.Block;
 public class Mino_T extends Mino{
 
     public Mino_T() {
-        create(Color.MAGENTA);
+        create(new Color(128, 0, 128));
     }
 
     @Override

@@ -26,6 +26,13 @@ public abstract class Mino {
    // collision
    public Boolean rightCo, leftCo, buttonCO;
    public Boolean active = true;
+
+
+   // set a delay when mino is about to be deacivate
+   public boolean deactivation = false;
+   int deactiveCounter = 0;
+
+
    
 
    public void create(Color color) {
@@ -150,8 +157,24 @@ public abstract class Mino {
 
 
    }
+   public void deactiveDelay() {
+      ++deactiveCounter;
+      if(deactiveCounter == 35) {
+
+         // first check if the buttom is still hitting or no
+         checkMoveCollision(); 
+         if(buttonCO) {
+            active = false;
+
+         }
+      }
+   }
 
    public void update() {
+
+      if(deactivation) {
+         deactiveDelay();
+      }
 
 
       if(KeyHandler.up) {
@@ -205,7 +228,9 @@ public abstract class Mino {
 
        if(buttonCO) {
          // if mino reaches button we deactive the mino and deploy next one
-         active = false;
+         // instead of deactive immdaitly we put some delay in proccess
+
+         deactivation = true;
 
        }
        else {
