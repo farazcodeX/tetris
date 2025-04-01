@@ -30,7 +30,7 @@ public abstract class Mino {
 
    // set a delay when mino is about to be deacivate
    public boolean deactivation = false;
-   int deactiveCounter = 0;
+   public int deactiveCounter = 0;
 
 
    

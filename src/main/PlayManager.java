@@ -47,8 +47,14 @@ public class PlayManager {
    // store the previus minos
    public static ArrayList<Block> staticBLocks = new ArrayList<>();
 
-   
+   // effect :
+   public Boolean effectCOunterOn = false;
+   int effectCounter = 0;
+   public ArrayList<Integer> effectY = new ArrayList<>();
 
+   // late game :
+   public boolean gameOver = false;
+     
     public PlayManager() {
 
         leftX = (GamePanel.width/2) - (width/2);
@@ -98,10 +104,16 @@ public class PlayManager {
         } else {
 
             mino.deactivation = false;
+            mino.deactiveCounter = 0;
 
             // if mino is deactive :
             for(int i = 0; i < 4; ++i) {
                 staticBLocks.add(mino.block[i]);
+            }
+
+            // game stats
+            if(mino.block[0].x == minoStarstX && mino.block[0].y == minoStartY) {
+                gameOver = true;
             }
 
             // then replace current mino with the next mino :
@@ -139,6 +151,10 @@ public class PlayManager {
             x += Block.size;
             if(x == rightX) {
                 if(blockCounter == 12) {
+
+                    // add effect
+                    effectCOunterOn = true;
+                    effectY.add(y);
                     // remove every block in this lien :
                     for(int j = staticBLocks.size()-1; j > -1; --j) {
                         // in dalil dare ke chra az akhar baresi mikonim
@@ -193,7 +209,33 @@ public class PlayManager {
             x = leftX + 70;
             y = topY + 320;
             g2d.drawString("PAUSED", x, y);
-        }   
+        } 
+        
+        if(effectCOunterOn) {
+
+            ++effectCounter;
+            
+            g2d.setColor(Color.RED);
+            for(int i = 0; i < effectY.size(); ++i) {
+                g2d.fillRect(leftX, effectY.get(i), width, Block.size);
+            }
+
+            if(effectCounter == 10) {
+                effectCOunterOn = false;
+                effectCounter = 0;
+                effectY.clear();
+            }
+
+        }
+        if(gameOver) {
+            g2d.setColor(Color.RED);
+            g2d.setFont(new Font("Arial", Font.PLAIN, 50));
+            x = leftX + 70;
+            y = topY + 320;
+            g2d.drawString("GAME OVER", x, y);
+
+
+        } 
 
     }
 

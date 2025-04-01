@@ -3,8 +3,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Time;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -17,8 +21,10 @@ public class GamePanel extends JPanel implements Runnable{
     PlayManager playManager = new PlayManager();
     KeyHandler keyHandler = new KeyHandler();
 
+    BufferedImage title;
 
-    public GamePanel() {
+
+    public GamePanel()  {
 
         this.setPreferredSize(new Dimension(width, height));
         this.setBackground(Color.BLACK);
@@ -26,6 +32,13 @@ public class GamePanel extends JPanel implements Runnable{
         // add key 
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
+        try {
+            title = ImageIO.read(new File("C:\\Users\\TUF\\Desktop\\tetris\\tetris\\src\\images\\Tetris-Logo-Transparent-PNG.png"));
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+        }
     }
 
     /*@Override
@@ -68,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable{
     // this method will be called form gameloop every 1/6 seconds to update the information of painting stufs
     private void update() {
 
-        if(KeyHandler.pause == false) {
+        if(KeyHandler.pause == false && playManager.gameOver == false) {
             playManager.update();
         }
         
@@ -83,6 +96,8 @@ public class GamePanel extends JPanel implements Runnable{
         // a downCacst
         Graphics2D g2d = (Graphics2D)g;
         playManager.draw(g2d);
+
+       g2d.drawImage(title, 70, playManager.topY + Block.size, playManager.leftX - 100 - Block.size, 400, null);
 
 
     }
