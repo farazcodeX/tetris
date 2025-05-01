@@ -44,11 +44,7 @@ public class KeyHandler implements KeyListener{
             else {
                pause = true;
             }
-             
-
-        }
-
-        
+        }   
     }
 
     @Override

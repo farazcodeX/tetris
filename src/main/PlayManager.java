@@ -38,7 +38,7 @@ public class PlayManager {
     // 12 block horizental and 30 block vertical
 
     // drop minos
-   public final static int dropInterval = 40;// 60 frmaes
+   public static int dropInterval = 50;// 60 frmaes
 
    // next mino details
    Mino nextMino;
@@ -54,6 +54,11 @@ public class PlayManager {
 
    // late game :
    public boolean gameOver = false;
+
+   int level = 1;
+   int score = 0;
+   int linee = 0;
+   int lineCounter = 0;
      
     public PlayManager() {
 
@@ -93,9 +98,9 @@ public class PlayManager {
          case 5: mino = new Mino_Z2(); break;
          case 6: mino = new Mino_z1(); break;  
        }
-
         return mino;
     }
+    
     public void update() {
 
         // mino active/deactive procces
@@ -151,6 +156,8 @@ public class PlayManager {
             x += Block.size;
             if(x == rightX) {
                 if(blockCounter == 12) {
+                    ++lineCounter;
+                    linee++;
 
                     // add effect
                     effectCOunterOn = true;
@@ -169,12 +176,32 @@ public class PlayManager {
                             staticBLocks.get(i).y += Block.size;
                         }
                     }
+                    if(linee % 10 == 0 && dropInterval > 1) {
+                        ++level;
+                        if(dropInterval > 10)  {
+                            dropInterval -= 10;
+
+                        }
+                        else {
+                            dropInterval -= 1;
+
+                        }
+                    }
                 }
+
                 blockCounter = 0;
                 x = leftX;
                 y += Block.size;
             }
+
+
         }
+        if(lineCounter > 0) {
+            int singleLineScore = 10 + level;
+            score += singleLineScore + linee;
+
+        }
+
 
     }
     public void draw(Graphics2D g2d) {
@@ -190,6 +217,15 @@ public class PlayManager {
         g2d.setFont(new Font("Arial", Font.PLAIN, 30));
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.drawString("NEXT", x+60, y+60);
+
+        // scpre
+        g2d.drawRect(x, topY, 250, 300);
+        x += 40;
+        y = topY + 90;
+        g2d.drawString("LEVEL " + level, x, y); y += 70;
+        g2d.drawString("Lines " + linee, x, y); y += 70;
+        g2d.drawString("SCORE " + score, x, y);
+ 
 
         for(Block block2 : staticBLocks) {
             block2.draw(g2d);

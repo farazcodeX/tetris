@@ -40,35 +40,6 @@ public class GamePanel extends JPanel implements Runnable{
             e.printStackTrace();
         }
     }
-
-    /*@Override
-    public void run() {
-
-        long currentTime;
-        long lastTime;
-        double perferdTime = 1000000000/6;
-        double delta = 0;
-
-
-       // time in nanoSecend
-       lastTime = System.nanoTime();
-
-        while (gameThread != null) {
-
-            System.out.println("run");
-
-            currentTime = System.nanoTime();
-            
-            delta += currentTime - lastTime / perferdTime;
-             lastTime = currentTime;
-            if(delta >= 1) {
-                update();
-                repaint();
-                
-                --delta;
-            }   
-        }
-    }*/
     
     public void lunchGame() {
 
@@ -123,6 +94,4 @@ public class GamePanel extends JPanel implements Runnable{
              lastTime = currentTime;// update our lastTime 
         }
     }
-
-    
 }
