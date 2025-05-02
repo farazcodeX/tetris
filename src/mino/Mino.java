@@ -33,6 +33,9 @@ public abstract class Mino {
    public boolean deactivation = false;
    public int deactiveCounter = 0;
 
+   // i hope this work
+   public boolean touchedOnce = false;
+
 
    
 
@@ -156,7 +159,8 @@ public abstract class Mino {
    }
    public void deactiveDelay() {
       ++deactiveCounter;
-      if(deactiveCounter == 35) {
+      if(deactiveCounter >= 35 && touchedOnce == true) {
+         deactiveCounter = 0;
 
          // first check if the buttom is still hitting or no
          checkMoveCollision(); 
@@ -230,7 +234,7 @@ public abstract class Mino {
          if(!deactivation) {
             GamePanel.sound.play(3, false);
          }
-
+         touchedOnce = true;
          deactivation = true;
 
        }

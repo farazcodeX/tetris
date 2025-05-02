@@ -53,7 +53,6 @@ public class GamePanel extends JPanel implements Runnable{
         // start the music
         // dont have music yet
         //music.play(0, true);
-
     }
 
     // this method will be called form gameloop every 1/6 seconds to update the information of painting stufs
@@ -62,8 +61,6 @@ public class GamePanel extends JPanel implements Runnable{
         if(KeyHandler.pause == false && playManager.gameOver == false) {
             playManager.update();
         }
-        
-
     }
     // lets go to my darling
     @Override
@@ -76,7 +73,6 @@ public class GamePanel extends JPanel implements Runnable{
         playManager.draw(g2d);
 
        g2d.drawImage(title, 70, playManager.topY + Block.size, playManager.leftX - 100 - Block.size, 400, null);
-
 
     }
     // re write run method form my other game

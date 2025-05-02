@@ -86,6 +86,7 @@ public class PlayManager {
 
     }
     private Mino pickMino() {
+      
        Mino mino = null;
        int rand = new Random().nextInt(7);
 
@@ -98,6 +99,7 @@ public class PlayManager {
          case 5: mino = new Mino_Z2(); break;
          case 6: mino = new Mino_z1(); break;  
        }
+       mino.touchedOnce = false;
         return mino;
     }
     
@@ -131,7 +133,6 @@ public class PlayManager {
 
             // check
             checkDeleteLine();
-
         }
     }
 
@@ -183,7 +184,6 @@ public class PlayManager {
                         }
                         else {
                             dropInterval -= 1;
-
                         }
                     }
                 }
