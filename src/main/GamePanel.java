@@ -11,6 +11,8 @@ import java.sql.Time;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import sound.Sound;
+
 public class GamePanel extends JPanel implements Runnable{
 
     // set Screen size first
@@ -20,6 +22,8 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
     PlayManager playManager = new PlayManager();
     KeyHandler keyHandler = new KeyHandler();
+    public static Sound sound = new Sound();
+    public static Sound music = new Sound();
 
     BufferedImage title;
 
@@ -40,12 +44,15 @@ public class GamePanel extends JPanel implements Runnable{
             e.printStackTrace();
         }
     }
-    
+
     public void lunchGame() {
 
         gameThread = new Thread(this);
         // this will call the run method 
         gameThread.start();
+        // start the music
+        // dont have music yet
+        //music.play(0, true);
 
     }
 

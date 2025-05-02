@@ -7,6 +7,7 @@ import java.util.jar.JarEntry;
 import javax.swing.text.html.HTMLDocument.BlockElement;
 
 import main.Block;
+import main.GamePanel;
 import main.PlayManager;
 import main.KeyHandler;
 
@@ -96,11 +97,8 @@ public abstract class Mino {
             if(block[i].x + Block.size == x && block[i].y == y) {
                rightCo = true;
             }
-         }
-         
-         
+         }   
       }
-
    }
 
    public void checkMoveCollision() {
@@ -127,7 +125,6 @@ public abstract class Mino {
              buttonCO = true;
          }
       }
-
    }
    public void checkRotateCollision() {
 
@@ -188,6 +185,7 @@ public abstract class Mino {
          }
          autoDropCounter = 0;
          KeyHandler.up = false;
+         GamePanel.sound.play(1, false);
       }
 
       checkMoveCollision();
@@ -229,6 +227,9 @@ public abstract class Mino {
        if(buttonCO) {
          // if mino reaches button we deactive the mino and deploy next one
          // instead of deactive immdaitly we put some delay in proccess
+         if(!deactivation) {
+            GamePanel.sound.play(3, false);
+         }
 
          deactivation = true;
 

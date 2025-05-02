@@ -119,6 +119,7 @@ public class PlayManager {
             // game stats
             if(mino.block[0].x == minoStarstX && mino.block[0].y == minoStartY) {
                 gameOver = true;
+                GamePanel.sound.play(1, false);
             }
 
             // then replace current mino with the next mino :
@@ -132,10 +133,8 @@ public class PlayManager {
             checkDeleteLine();
 
         }
-
-        
-
     }
+
     public void checkDeleteLine() {
 
         // we are counting blocks in each line
@@ -193,16 +192,13 @@ public class PlayManager {
                 x = leftX;
                 y += Block.size;
             }
-
-
         }
         if(lineCounter > 0) {
+            GamePanel.sound.play(0, false);
             int singleLineScore = 10 + level;
             score += singleLineScore + linee;
 
         }
-
-
     }
     public void draw(Graphics2D g2d) {
 
@@ -261,7 +257,6 @@ public class PlayManager {
                 effectCounter = 0;
                 effectY.clear();
             }
-
         }
         if(gameOver) {
             g2d.setColor(Color.RED);
@@ -270,10 +265,6 @@ public class PlayManager {
             y = topY + 320;
             g2d.drawString("GAME OVER", x, y);
 
-
         } 
-
     }
-
-
 }

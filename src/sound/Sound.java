@@ -1,10 +1,13 @@
 package sound;
 
+import java.lang.reflect.Type;
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 
 public class Sound {
     URL[] url = new URL[5];
@@ -24,11 +27,28 @@ public class Sound {
             if(isMusic) {
                 music = clip;
             }
-            
+            clip.open(ais);
+            clip.addLineListener(new LineListener() {
 
+                @Override
+                public void update(LineEvent event) {
+                    if(event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
+                        clip.close();
+                    }
+                }
+            });
+            ais.close();
+            clip.start();
         } catch (Exception e) {
 
         }
-
     }
+    public void loop() {
+        music.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+    public void close() {
+        music.stop();
+        music.close();
+    }
+
 }
