@@ -26,8 +26,5 @@ public class Main {
         // lucnh game here
         gamePanel.lunchGame();
 
-
-
-
     }
 }

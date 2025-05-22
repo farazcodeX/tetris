@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static Sound music = new Sound();
 
     BufferedImage title;
+    BufferedImage backGround;
 
 
     public GamePanel()  {
@@ -39,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         try {
             title = ImageIO.read(new File("C:\\Users\\TUF\\Desktop\\tetris\\tetris\\src\\images\\Tetris-Logo-Transparent-PNG.png"));
+            backGround = ImageIO.read(new File("C:\\Users\\TUF\\Desktop\\tetris\\tetris\\src\\images\\ChatGPT Image May 18, 2025, 09_26_51 PM.png"));
         } catch (IOException e) {
             
             e.printStackTrace();
@@ -70,9 +72,11 @@ public class GamePanel extends JPanel implements Runnable{
         
         // a downCacst
         Graphics2D g2d = (Graphics2D)g;
+        g2d.drawImage(backGround, 0, 0, 1280, 720, null);
         playManager.draw(g2d);
 
        g2d.drawImage(title, 70, playManager.topY + Block.size, playManager.leftX - 100 - Block.size, 400, null);
+       
 
     }
     // re write run method form my other game

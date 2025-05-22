@@ -197,7 +197,6 @@ public class PlayManager {
             GamePanel.sound.play(0, false);
             int singleLineScore = 10 + level;
             score += singleLineScore + linee;
-
         }
     }
     public void draw(Graphics2D g2d) {
